@@ -119,7 +119,7 @@ class LoginScreen extends StatelessWidget {
                       )),
                 ),
                 SizedBox(
-                  height: 50,
+                  height: 30,
                 ),
                 Center(
                   child: CustomText(
