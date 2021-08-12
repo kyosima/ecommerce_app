@@ -1,13 +1,15 @@
 import 'package:ecommerce_app/constance.dart';
-import 'package:ecommerce_app/views/auth/register_screen.dart';
+import 'package:ecommerce_app/controllers/fire_base/auth_controller.dart';
 import 'package:ecommerce_app/views/widget/custom_buttonlogin.dart';
 import 'package:ecommerce_app/views/widget/custom_text.dart';
 import 'package:ecommerce_app/views/widget/custom_textformfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatelessWidget {
+  final AuthController authController = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -150,7 +152,7 @@ class LoginScreen extends StatelessWidget {
                     color: Colors.white,
                     image: 'assets/images/search.png',
                     onPressed: () {
-                      print('Login Google');
+                      authController.googleSignIn();
                     },
                   ),
                 ),
