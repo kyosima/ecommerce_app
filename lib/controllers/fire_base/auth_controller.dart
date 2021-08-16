@@ -10,9 +10,8 @@ class AuthController extends GetxController {
     super.onInit();
   }
 
-  void googleSignIn() async {
+  Future<UserCredential> googleSignIn() async {
     final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-    print(googleUser);
     final GoogleSignInAuthentication googleAuth =
         await googleUser!.authentication;
     final credential = GoogleAuthProvider.credential(
@@ -21,6 +20,23 @@ class AuthController extends GetxController {
     );
     UserCredential userCredential =
         await _auth.signInWithCredential(credential);
-    print(userCredential.user);
+    print(userCredential.user!.email);
+    return _auth.signInWithCredential(credential);
+  }
+
+  // void facebookSignIn() async {
+  //   final LoginResult loginResult = await FacebookAuth.instance.login();
+  //
+  //   // Create a credential from the access token
+  //   final OAuthCredential facebookAuthCredential =
+  //       FacebookAuthProvider.credential(loginResult.accessToken!.token);
+  //
+  //   UserCredential userCredential =
+  //       await _auth.signInWithCredential(facebookAuthCredential);
+  //   print(userCredential.user);
+  // }
+
+  Future<void> logOut() async {
+    await _auth.signOut();
   }
 }

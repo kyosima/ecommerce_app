@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/constance.dart';
+import 'package:ecommerce_app/views/auth/home_screen.dart';
 import 'package:ecommerce_app/views/auth/login_screen.dart';
 import 'package:ecommerce_app/views/auth/register_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,6 +22,10 @@ class MyApp extends StatelessWidget {
         primarySwatch: primaryColor,
       ),
       getPages: [
+        GetPage(
+          name: '/home',
+          page: () => HomeScreen(),
+        ),
         GetPage(
           name: '/login',
           page: () => LoginScreen(),

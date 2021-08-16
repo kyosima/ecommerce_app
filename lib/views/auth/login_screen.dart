@@ -59,7 +59,7 @@ class LoginScreen extends StatelessWidget {
                                     )
                                   ],
                                 ),
-                                FlatButton(
+                                TextButton(
                                   onPressed: () {
                                     Get.toNamed('/register');
                                   },
@@ -141,7 +141,7 @@ class LoginScreen extends StatelessWidget {
                     color: Colors.white,
                     image: 'assets/images/facebook.png',
                     onPressed: () {
-                      print('Login Facebook');
+                      // authController.facebookSignIn();
                     },
                   ),
                 ),
@@ -153,6 +153,7 @@ class LoginScreen extends StatelessWidget {
                     image: 'assets/images/search.png',
                     onPressed: () {
                       authController.googleSignIn();
+                      Get.toNamed('/home');
                     },
                   ),
                 ),
