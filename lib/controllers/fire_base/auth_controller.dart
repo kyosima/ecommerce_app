@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_facebook_login/flutter_facebook_login.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthController extends GetxController {
   GoogleSignIn _googleSignIn = GoogleSignIn(scopes: ['email']);
   FirebaseAuth _auth = FirebaseAuth.instance;
+  FacebookLogin _facebookLogin = FacebookLogin();
   @override
   void onInit() {
     super.onInit();
@@ -24,17 +26,14 @@ class AuthController extends GetxController {
     return _auth.signInWithCredential(credential);
   }
 
-  // void facebookSignIn() async {
-  //   final LoginResult loginResult = await FacebookAuth.instance.login();
-  //
-  //   // Create a credential from the access token
-  //   final OAuthCredential facebookAuthCredential =
-  //       FacebookAuthProvider.credential(loginResult.accessToken!.token);
-  //
-  //   UserCredential userCredential =
-  //       await _auth.signInWithCredential(facebookAuthCredential);
-  //   print(userCredential.user);
-  // }
+  void facebookLogin() async {
+    final resuft = await _facebookLogin.logIn(['email']);
+    final token = resuft.accessToken.token;
+    if (resuft.status == FacebookLoginStatus.loggedIn) {
+      final facebookCredential = FacebookAuthProvider.credential(token);
+      await _auth.signInWithCredential(facebookCredential);
+    }
+  }
 
   Future<void> logOut() async {
     await _auth.signOut();
