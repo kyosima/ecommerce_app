@@ -21,4 +21,9 @@ class CounterController extends GetxController {
     count++;
     update();
   }
+
+  void decrement() {
+    count--;
+    update();
+  }
 }

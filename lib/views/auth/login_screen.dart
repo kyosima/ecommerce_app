@@ -10,6 +10,7 @@ import 'package:get/get.dart';
 
 class LoginScreen extends StatelessWidget {
   final AuthController authController = Get.put(AuthController());
+  final GlobalKey<FormState> _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,85 +39,112 @@ class LoginScreen extends StatelessWidget {
                           ]),
                       child: Padding(
                         padding: const EdgeInsets.all(15.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          children: [
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Column(
-                                  children: [
-                                    CustomText(
-                                      label: 'WelCome,',
+                        child: Form(
+                          key: _formkey,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Column(
+                                    children: [
+                                      CustomText(
+                                        label: 'WelCome,',
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 27,
+                                      ),
+                                      SizedBox(
+                                        height: 15,
+                                      ),
+                                      CustomText(
+                                        label: 'Sign in to continute',
+                                      )
+                                    ],
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      Get.toNamed('/register');
+                                    },
+                                    child: CustomText(
+                                      label: 'SignUp',
+                                      color: primaryColor,
+                                      fontSize: 20,
                                       fontWeight: FontWeight.w500,
-                                      fontSize: 27,
                                     ),
-                                    SizedBox(
-                                      height: 15,
-                                    ),
-                                    CustomText(
-                                      label: 'Sign in to continute',
-                                    )
-                                  ],
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: 40,
+                              ),
+                              CustomTextFormField(
+                                label: 'Email',
+                                textInput: TextInputType.emailAddress,
+                                hint: 'Your Email',
+                                onSaved: (value) {
+                                  authController.email = value.toString();
+                                },
+                                validator: (value) {
+                                  if (value == null) {
+                                    print('Email can not null');
+                                  }
+                                },
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              CustomTextFormField(
+                                label: 'Password',
+                                hint: 'Your password',
+                                obscureText: true,
+                                onSaved: (value) {
+                                  authController.password = value.toString();
+                                  print(authController.password);
+                                },
+                                validator: (value) {
+                                  if (value == null) {
+                                    print('Email can not null');
+                                  }
+                                },
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Container(
+                                alignment: Alignment.topRight,
+                                child: CustomText(
+                                  label: 'Forgot your Password?',
+                                  textAlignt: TextAlign.right,
+                                  fontWeight: FontWeight.w300,
                                 ),
-                                TextButton(
+                              ),
+                              SizedBox(
+                                height: 30,
+                              ),
+                              SizedBox(
+                                height: 45,
+                                child: RaisedButton(
+                                  color: primaryColor,
                                   onPressed: () {
-                                    Get.toNamed('/register');
+                                    _formkey.currentState!.save();
+                                    if (_formkey.currentState!.validate()) {
+                                      authController
+                                          .signInWithEmailAndPassword();
+                                    }
                                   },
-                                  child: CustomText(
-                                    label: 'SignUp',
-                                    color: primaryColor,
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                )
-                              ],
-                            ),
-                            SizedBox(
-                              height: 40,
-                            ),
-                            CustomTextFormField(
-                              label: 'Email',
-                              textInput: TextInputType.emailAddress,
-                              hint: 'Your Email',
-                            ),
-                            SizedBox(
-                              height: 10,
-                            ),
-                            CustomTextFormField(
-                              label: 'Password',
-                              hint: 'Your password',
-                              obscureText: true,
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            Container(
-                              alignment: Alignment.topRight,
-                              child: CustomText(
-                                label: 'Forgot your Password?',
-                                textAlignt: TextAlign.right,
-                                fontWeight: FontWeight.w300,
-                              ),
-                            ),
-                            SizedBox(
-                              height: 30,
-                            ),
-                            SizedBox(
-                              height: 45,
-                              child: RaisedButton(
-                                color: primaryColor,
-                                onPressed: () {},
-                                child: Text(
-                                  'Login',
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.white,
+                                  child: Text(
+                                    'Login',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: Colors.white,
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ],
+                            ],
+                          ),
                         ),
                       )),
                 ),
@@ -153,7 +181,7 @@ class LoginScreen extends StatelessWidget {
                     image: 'assets/images/search.png',
                     onPressed: () {
                       authController.googleSignIn();
-                      Get.toNamed('/home');
+                      Get.offAllNamed('/home');
                     },
                   ),
                 ),

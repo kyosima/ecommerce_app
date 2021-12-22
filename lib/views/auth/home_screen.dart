@@ -12,11 +12,21 @@ class HomeScreen extends StatelessWidget {
       ),
       body: Container(
         child: Center(
-          child: TextButton(
-            onPressed: () {
-              authController.logOut();
-            },
-            child: Text('Logout'),
+          child: Column(
+            children: [
+              TextButton(
+                onPressed: () {
+                  authController.logOut();
+                },
+                child: Text('Logout'),
+              ),
+              TextButton(
+                onPressed: () {
+                  Get.toNamed('/counter');
+                },
+                child: Text('Go to Counter'),
+              ),
+            ],
           ),
         ),
       ),

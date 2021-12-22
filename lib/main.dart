@@ -1,4 +1,6 @@
 import 'package:ecommerce_app/constance.dart';
+import 'package:ecommerce_app/views/auth/control_view.dart';
+import 'package:ecommerce_app/views/auth/count.dart';
 import 'package:ecommerce_app/views/auth/home_screen.dart';
 import 'package:ecommerce_app/views/auth/login_screen.dart';
 import 'package:ecommerce_app/views/auth/register_screen.dart';
@@ -31,11 +33,11 @@ class MyApp extends StatelessWidget {
           page: () => LoginScreen(),
         ),
         GetPage(
-          name: '/register',
-          page: () => RegisterScreen(),
+          name: '/counter',
+          page: () => Counter(),
         ),
       ],
-      home: LoginScreen(),
+      home: ControlView(),
     );
   }
 }
